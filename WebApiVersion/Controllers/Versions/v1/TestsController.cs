@@ -13,11 +13,17 @@ namespace WebApiVersion.Controllers.Versions.v1
     [ApiVersion("1.0")]
     public class TestsController : ControllerBase
     {
-      [HttpGet()]
+      [HttpGet]
       public IActionResult Get()
       {
         return Ok(HttpContext.GetRequestedApiVersion().ToString());
       }
+
+    //[HttpGet("v2")]
+    //public IActionResult GetV2()
+    //{
+    //  return Ok();
+    //}
 
 
     
