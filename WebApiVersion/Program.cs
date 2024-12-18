@@ -19,6 +19,7 @@ builder.Services.AddSwaggerGen(c =>
 // api/tests
 // api/tests?api-version=2.0
 // header api-version
+// https://www.gencayyildiz.com/blog/net-core-5-0-retry-pattern-timeout-ve-circuit-breaker-polly/
 
 
 builder.Services.AddApiVersioning(o =>
