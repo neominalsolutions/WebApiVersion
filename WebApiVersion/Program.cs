@@ -31,6 +31,8 @@ builder.Services.AddApiVersioning(o =>
       new HeaderApiVersionReader("api-version"));
 
 });
+
+// swagger üzerinden api doc oluþurken ayný controller isimleri varsa bunlarý gruplamak için aþaðýdaki groupFormat template deðiþtirme
 builder.Services.AddVersionedApiExplorer(
     options =>
     {
@@ -39,6 +41,39 @@ builder.Services.AddVersionedApiExplorer(
     });
 
 
+//builder.Services.AddCors(opt =>
+//{
+//  opt.AddPolicy("Default", policy =>
+//  {
+
+//  });
+
+//});
+
+// example.com domain gelen tüm sub domainlere cors ayarý uygular.
+// https://learn.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-9.0
+
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy(name: "Default",
+     policy =>
+     {
+       policy.WithOrigins("*")
+
+             .SetIsOriginAllowedToAllowWildcardSubdomains();
+     });
+
+  options.AddPolicy(name: "TestCors",
+      policy =>
+      {
+        //policy.WithOrigins("http://localhost:3005")
+        //      .WithMethods("GET", "POST")
+        //      .AllowAnyHeader()
+        //      .SetIsOriginAllowedToAllowWildcardSubdomains();
+
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+      });
+});
 
 
 builder.Services.AddVersionedApiExplorer(o =>
@@ -54,6 +89,9 @@ if (app.Environment.IsDevelopment())
   app.UseSwagger();
   app.UseSwaggerUI();
 }
+
+
+app.UseCors("Default");
 
 app.UseHttpsRedirection();
 
